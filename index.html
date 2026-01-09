@@ -3,228 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Oriental Ninja</title>
+    <title>Menú Ninja 4 Niveles</title>
     <style>
-        /* --- ESTILOS GENERALES --- */
+        /* --- 1. ESTILOS GENERALES Y FONDO --- */
         body {
-            font-family: 'Courier New', Courier, monospace; /* Fuente estilo retro/técnico */
-            background-color: #f4f1ea; /* Color papel arroz suave */
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Evita scroll lateral durante la animación */
+            overflow-x: hidden;
+            /* Aquí intenta cargar tu fondo. Si falla, usa el color crema */
+            background: url('fondo.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            background-color: #f4f1ea; 
         }
 
         h1 {
             text-align: center;
-            color: #d62828; /* Rojo japonés */
+            color: #d62828; 
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
             margin-top: 20px;
+            border-bottom: 2px solid #d62828;
         }
 
-        /* --- INTRO NINJA (Overlay) --- */
+        /* --- 2. PANTALLA DE "ENTRAR" (Soluciona el problema del sonido) --- */
+        #start-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: white;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #start-btn {
+            padding: 20px 40px;
+            font-size: 24px;
+            background: #d62828;
+            color: white;
+            border: 2px solid white;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+        
+        #start-btn:hover {
+            background: #ff4d4d;
+        }
+
+        /* --- 3. ANIMACIÓN SUSHI (Intro) --- */
         #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #1a1a1a; /* Fondo oscuro ninja */
-            z-index: 9999; /* Por encima de todo */
-            display: flex;
+            background-color: rgba(0,0,0,0.9); 
+            z-index: 9999; 
+            display: none; /* Se activa con JS */
             align-items: center;
             justify-content: center;
-            transition: opacity 1s ease-out; /* Desvanecimiento suave al final */
         }
 
-        /* La imagen del sushi rodante */
         #sushi-roller {
-            width: 150px; /* Tamaño del sushi */
+            width: 150px;
             position: absolute;
-            left: -200px; /* Empieza fuera de pantalla a la izquierda */
-            /* Animación definida abajo */
-            animation: ninjaRoll 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            left: -200px;
+            /* La animación se inyecta con JS para sincronizar */
         }
 
-        /* Definición de la animación: Rodar de Derecha a Izquierda */
         @keyframes ninjaRoll {
-            0% {
-                left: 110%; /* Empieza fuera a la derecha */
-                transform: rotate(0deg);
-            }
-            100% {
-                left: -20%; /* Termina fuera a la izquierda */
-                transform: rotate(-1440deg); /* Rota muchas veces (efecto rodar rápido) */
-            }
+            0% { left: 110%; transform: rotate(0deg); }
+            100% { left: -20%; transform: rotate(-1440deg); }
         }
 
-        /* --- CONTENIDO PRINCIPAL (Acordeón) --- */
+        /* --- 4. LOS 4 NIVELES (Acordeón) --- */
         .container {
             max-width: 600px;
-            margin: 50px auto;
+            margin: 100px auto 50px auto; /* Margen superior para bajarlo */
             padding: 20px;
-            opacity: 0; /* Oculto al inicio */
-            transition: opacity 1s; /* Aparece suavemente tras la intro */
+            opacity: 0; 
+            transition: opacity 1s;
         }
 
         .accordion-item {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.95);
             border: 2px solid #333;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border-radius: 5px;
-            box-shadow: 3px 3px 0px #d62828;
-            overflow: hidden;
+            box-shadow: 4px 4px 0px #d62828;
         }
 
         .accordion-header {
-            background-color: #333;
+            background-color: #222;
             color: #fff;
             padding: 15px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background 0.3s;
         }
 
         .accordion-header:hover {
-            background-color: #555;
+            background-color: #444;
         }
 
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            padding: 0 15px;
-            background-color: #fffaf0;
+            transition: max-height 0.3s ease-out;
+            background-color: #fff;
+            color: #333;
         }
 
-        .accordion-content p {
-            padding: 15px 0;
+        .menu-list {
+            list-style-type: none;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .menu-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ccc;
         }
 
-        /* --- VIDEO CONTAINER --- */
+        /* --- VIDEO --- */
         .video-wrapper {
             margin-top: 50px;
             text-align: center;
             padding-bottom: 50px;
-            border-top: 1px dashed #333;
-            padding-top: 20px;
         }
-        
         iframe {
             border: 4px solid #333;
-            border-radius: 10px;
             box-shadow: 5px 5px 0px #d62828;
             max-width: 100%;
         }
-
     </style>
 </head>
 <body>
 
+    <div id="start-screen">
+        <h1>🏯 BIENVENIDO AL DOJO 🏯</h1>
+        <p>(Haz clic para iniciar la experiencia)</p>
+        <button id="start-btn">ENTRAR</button>
+    </div>
+
     <div id="intro-overlay">
-        <img src="sushi.png" alt="Sushi Ninja" id="sushi-roller" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2224/2224256.png'"> 
+        <img src="sushi.png" alt="Sushi Rodando" id="sushi-roller">
     </div>
 
     <div class="container" id="main-content">
-        <h1>🏯 Menú de Niveles 🏯</h1>
+        <h1>Menú de Aprendizaje</h1>
 
         <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleLevel(this, 'nivel0')">
-                Nivel 0: Iniciado
+            <div class="accordion-header" onclick="toggleLevel('nivel0')">
+                Nivel 0: Cinturón Blanco
                 <span>▼</span>
             </div>
             <div class="accordion-content" id="nivel0">
-                <p>Aquí comienza tu camino. Conceptos básicos y fundamentos del código.</p>
+                <ul class="menu-list">
+                    <li>• Introducción a la lógica</li>
+                    <li>• Variables y Tipos de Datos</li>
+                    <li>• Tu primer "Hola Mundo"</li>
+                </ul>
             </div>
         </div>
 
         <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleLevel(this, 'nivel1')">
-                Nivel 1: Aprendiz
+            <div class="accordion-header" onclick="toggleLevel('nivel1')">
+                Nivel 1: Cinturón Amarillo
                 <span>▼</span>
             </div>
             <div class="accordion-content" id="nivel1">
-                <p>Dominando las estructuras de control y funciones simples.</p>
+                <ul class="menu-list">
+                    <li>• Estructuras de Control (If/Else)</li>
+                    <li>• Bucles (For/While)</li>
+                    <li>• Funciones Básicas</li>
+                </ul>
             </div>
         </div>
 
         <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleLevel(this, 'nivel2')">
-                Nivel 2: Samurai
+            <div class="accordion-header" onclick="toggleLevel('nivel2')">
+                Nivel 2: Cinturón Azul
                 <span>▼</span>
             </div>
             <div class="accordion-content" id="nivel2">
-                <p>Algoritmos avanzados y manipulación del DOM estilo ninja.</p>
+                <ul class="menu-list">
+                    <li>• Arrays y Objetos</li>
+                    <li>• Manipulación del DOM</li>
+                    <li>• Eventos de Usuario</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleLevel('nivel3')">
+                Nivel 3: Cinturón Negro
+                <span>▼</span>
+            </div>
+            <div class="accordion-content" id="nivel3">
+                <ul class="menu-list">
+                    <li>• APIs y Fetch</li>
+                    <li>• Programación Asíncrona</li>
+                    <li>• Despliegue de Proyectos</li>
+                </ul>
             </div>
         </div>
 
         <div class="video-wrapper">
-            <h3>🍣 Maestro Iwao: Los Básicos del Sushi</h3>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/3wxEn90-YsY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <h3>🍣 Maestro Iwao: Los Básicos</h3>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/3wxEn90-YsY" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
     <script>
-        // --- SONIDOS ---
-        // Nota: Asegúrate de tener estos archivos o cambiar los nombres por los tuyos
-        const soundIntro = new Audio('ninja_woosh.mp3'); 
-        const soundLevel = new Audio('pin_piriri.mp3');
+        // CARGA DE SONIDOS (Verifica nombres exactos)
+        const soundIntro = new Audio('ninja.mp3'); 
+        const soundLevel = new Audio('nivel.mp3'); 
 
-        function tryPlaySound(audioObj) {
-            audioObj.volume = 0.5;
-            const playPromise = audioObj.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("El navegador bloqueó el autoplay (se activará tras el primer clic).");
-                });
-            }
-        }
+        // 1. INICIAR TODO AL HACER CLIC EN "ENTRAR"
+        document.getElementById('start-btn').addEventListener('click', function() {
+            // Ocultar pantalla de inicio
+            document.getElementById('start-screen').style.display = 'none';
+            
+            // Mostrar overlay de animación
+            const overlay = document.getElementById('intro-overlay');
+            overlay.style.display = 'flex';
+            
+            // Lanzar animación CSS manualmente
+            const sushi = document.getElementById('sushi-roller');
+            sushi.style.animation = "ninjaRoll 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards";
 
-        // --- LÓGICA DE LA INTRO ---
-        window.addEventListener('load', () => {
-            // 1. Intentar sonar el Woosh ninja al cargar
-            tryPlaySound(soundIntro);
+            // REPRODUCIR SONIDO INTRO
+            soundIntro.volume = 0.6;
+            soundIntro.play().catch(e => alert("Error audio intro: " + e));
 
-            // 2. Esperar a que termine la animación (2.5s)
+            // Esperar a que termine la animación (2.5s)
             setTimeout(() => {
-                const overlay = document.getElementById('intro-overlay');
-                const content = document.getElementById('main-content');
-
-                // Desvanecer el telón negro
+                // Desvanecer overlay
+                overlay.style.transition = "opacity 1s";
                 overlay.style.opacity = '0';
-                
-                // Mostrar el contenido
-                content.style.opacity = '1';
 
-                // Quitar el overlay del HTML después del fade para poder interactuar
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                }, 1000);
+                // Mostrar contenido
+                document.getElementById('main-content').style.opacity = '1';
 
-            }, 2500); // Tiempo que dura la animación CSS
+                // Quitar overlay del DOM
+                setTimeout(() => { overlay.style.display = 'none'; }, 1000);
+            }, 2500);
         });
 
-        // --- LÓGICA DEL ACORDEÓN ---
-        function toggleLevel(header, contentId) {
-            const content = document.getElementById(contentId);
-            const isOpening = content.style.maxHeight ? false : true;
+        // 2. FUNCIÓN DE NIVELES (ACORDEÓN)
+        function toggleLevel(id) {
+            const content = document.getElementById(id);
+            
+            // Si está cerrado (maxHeight es null o 0), lo abrimos
+            if (!content.style.maxHeight || content.style.maxHeight === "0px") {
+                // Cerrar los otros primero (Opcional, si quieres que solo uno esté abierto)
+                document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = "0px");
 
-            // Cerrar todos los demás (para efecto acordeón limpio)
-            document.querySelectorAll('.accordion-content').forEach(item => {
-                item.style.maxHeight = null;
-            });
+                // SONIDO PIN PIRIRI
+                soundLevel.currentTime = 0;
+                soundLevel.play().catch(e => console.log("Error audio nivel"));
 
-            // Si estamos abriendo este nivel
-            if (isOpening) {
-                // 1. Reproducir el sonido Oriental "Pin Piriri..."
-                soundLevel.currentTime = 0; 
-                soundLevel.play().catch(e => console.log("Audio pendiente de interacción usuario."));
-
-                // 2. Abrir el panel visualmente
+                // Abrir
                 content.style.maxHeight = content.scrollHeight + "px";
             } else {
-                content.style.maxHeight = null;
+                // Cerrar
+                content.style.maxHeight = "0px";
             }
         }
     </script>
