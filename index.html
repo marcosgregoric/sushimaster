@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushi Master: Guía para mi Sobrina</title>
+    <title>Sushi Master Guide</title>
     <style>
         :root {
-            --primary: #FF6B6B; /* Salmón */
+            --primary: #FF6B6B; /* Color Salmón */
             --bg: #F7F9FC;
             --card: #FFFFFF;
             --text: #2D3436;
         }
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -22,50 +22,71 @@
         header {
             text-align: center;
             margin-bottom: 30px;
+            padding: 20px 0;
         }
-        h1 { color: var(--primary); margin-bottom: 5px; }
-        .subtitle { font-size: 0.9em; color: #636e72; }
+        h1 { color: var(--primary); margin: 0; font-size: 2.5em; }
+        .subtitle { font-size: 1.1em; color: #636e72; margin-top: 10px; }
         
+        /* Estilo de las tarjetas */
         .card {
             background: var(--card);
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
             cursor: pointer;
-            border-left: 5px solid var(--primary);
+            border-left: 6px solid var(--primary);
+            overflow: hidden;
         }
-        .card:hover { transform: translateY(-3px); }
+        .card:active { transform: scale(0.98); }
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: bold;
-            font-size: 1.1em;
+            font-weight: 700;
+            font-size: 1.2em;
+            padding: 5px;
         }
-        .emoji { font-size: 1.5em; margin-right: 10px; }
+        .toggle-icon { color: var(--primary); font-weight: bold; }
+        
+        /* Contenido oculto */
         .content {
             display: none;
             margin-top: 15px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+            border-top: 2px solid #f0f2f5;
+            padding-top: 20px;
+            animation: fadeIn 0.5s ease;
         }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Estilos para las IMÁGENES */
+        .level-image {
+            width: 100%;
+            height: 200px; /* Altura fija para uniformidad */
+            object-fit: cover; /* Recorta la imagen para que llene el espacio sin deformarse */
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos de los pasos */
         .step {
-            background: #fff0f0;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 0.95em;
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            font-size: 1em;
+            border-left: 3px solid #ffcccc;
         }
         strong { color: var(--primary); }
         
-        /* Botón final */
         .footer-note {
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.8em;
+            margin-top: 50px;
+            font-size: 0.9em;
             color: #b2bec3;
+            padding-bottom: 20px;
         }
     </style>
 </head>
@@ -73,76 +94,91 @@
 
 <header>
     <h1>🍣 Sushi Master</h1>
-    <div class="subtitle">De principiante a experta</div>
+    <div class="subtitle">Tu camino de principiante a experta</div>
 </header>
 
-<div class="card" onclick="toggleCard('c0')">
+<div class="card" onclick="toggleCard(this, 'c0')">
     <div class="card-header">
         <span>🍚 Nivel 0: El Secreto del Arroz</span>
-        <span>▼</span>
+        <span class="toggle-icon">▼</span>
     </div>
     <div class="content" id="c0">
-        <p>Sin buen arroz, no hay sushi. Este es el paso más importante.</p>
-        <div class="step"><strong>1. Lavar:</strong> Lava el arroz 5 o 6 veces hasta que el agua salga transparente. ¡Quítale el almidón!</div>
-        <div class="step"><strong>2. Cocinar:</strong> Misma cantidad de agua que de arroz. Fuego fuerte hasta hervir, luego mínimo y tapado por 15 min.</div>
-        <div class="step"><strong>3. El Aderezo (Su):</strong> Mezcla vinagre de arroz, azúcar y sal. Caliéntalo sin hervir.</div>
-        <div class="step"><strong>4. Enfriar:</strong> Pasa el arroz a una fuente amplia, echa el líquido y abanica mientras mezclas cortando (no aplastes).</div>
+        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arroz de sushi preparado" class="level-image">
+        
+        <p style="text-align: center; font-style: italic;">Sin buen arroz, no hay sushi. Este es el cimiento.</p>
+        <div class="step"><strong>1. Lavar hasta que aclare:</strong> Lava el arroz 5 o 6 veces frotando suavemente. El agua debe salir casi transparente. ¡Clave!</div>
+        <div class="step"><strong>2. Cocinar (Regla 1:1):</strong> Misma cantidad de agua que de arroz. Olla tapada. Fuego fuerte hasta hervir, luego 15 min al mínimo. Apagar y dejar reposar 10 min sin destapar.</div>
+        <div class="step"><strong>3. El "Su" (Aderezo):</strong> Por cada taza de arroz: 2 cdas vinagre de arroz, 1 cda azúcar, 1/2 cdita sal. Caliéntalo hasta que se disuelva (sin hervir).</div>
+        <div class="step"><strong>4. Enfriar y cortar:</strong> Pasa el arroz a una fuente amplia (de madera o plástico). Echa el aderezo y "corta" el arroz con una espátula mientras abanicas para enfriarlo. ¡No lo aplastes!</div>
     </div>
 </div>
 
-<div class="card" onclick="toggleCard('c1')">
+<div class="card" onclick="toggleCard(this, 'c1')">
     <div class="card-header">
         <span>🥒 Nivel 1: Hosomaki (Rollos finos)</span>
-        <span>▼</span>
+        <span class="toggle-icon">▼</span>
     </div>
     <div class="content" id="c1">
-        <p>El clásico rollo pequeño con un solo ingrediente.</p>
-        <div class="step"><strong>1. Nori:</strong> Corta la hoja de alga Nori por la mitad. Usa el lado rugoso hacia arriba.</div>
-        <div class="step"><strong>2. Manos:</strong> Mójate las manos para que el arroz no se pegue.</div>
-        <div class="step"><strong>3. Relleno:</strong> Pon poco arroz (deja un borde libre arriba) y una tira de pepino o salmón en el centro.</div>
-        <div class="step"><strong>4. Enrollar:</strong> Usa la esterilla. Cierra cuadrado, no redondo. ¡Presiona firme pero suave!</div>
+        <img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Hosomaki de pepino" class="level-image">
+
+        <p style="text-align: center; font-style: italic;">El clásico rollo pequeño con un solo ingrediente.</p>
+        <div class="step"><strong>1. Preparar Nori:</strong> Corta la hoja de alga Nori por la mitad. Colócala sobre la esterilla con el lado rugoso hacia arriba.</div>
+        <div class="step"><strong>2. Manos de agua:</strong> Ten un bol con agua cerca. Mójate las manos para que el arroz no se te pegue a los dedos.</div>
+        <div class="step"><strong>3. Relleno minimalista:</strong> Extiende una capa fina de arroz dejando 2cm libres arriba. Pon una sola tira de ingrediente (pepino o salmón) en el centro.</div>
+        <div class="step"><strong>4. La técnica:</strong> Levanta la esterilla con los pulgares, sostén el relleno con los dedos y enrolla hasta cerrar. Presiona para darle forma cuadrada.</div>
     </div>
 </div>
 
-<div class="card" onclick="toggleCard('c2')">
+<div class="card" onclick="toggleCard(this, 'c2')">
     <div class="card-header">
-        <span>🥑 Nivel 2: Uramaki (Arroz por fuera)</span>
-        <span>▼</span>
+        <span>🥑 Nivel 2: Uramaki (Invertido)</span>
+        <span class="toggle-icon">▼</span>
     </div>
     <div class="content" id="c2">
-        <p>Sube la dificultad. El famoso California Roll.</p>
-        <div class="step"><strong>1. Invertir:</strong> Cubre toda el alga con arroz. Esparce sésamo. ¡Dale la vuelta! (Alga arriba, arroz abajo).</div>
-        <div class="step"><strong>2. Relleno:</strong> Pon el relleno sobre el alga (palta, queso crema, salmón).</div>
-        <div class="step"><strong>3. Plastificar:</strong> Envuelve tu esterilla en film plástico para que no se pegue el arroz.</div>
-        <div class="step"><strong>4. Corte:</strong> Moja el cuchillo antes de CADA corte para que salga perfecto.</div>
+         <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="California Roll Uramaki" class="level-image">
+
+        <p style="text-align: center; font-style: italic;">Sube la dificultad: arroz por fuera (Tipo California Roll).</p>
+        <div class="step"><strong>1. Plastifica tu esterilla:</strong> Envuelve tu esterilla en film plástico de cocina. ¡Vital para que no se pegue todo!</div>
+        <div class="step"><strong>2. Cubrir e invertir:</strong> Cubre TODA la media alga con arroz. Esparce sésamo por encima. Ahora... ¡dale la vuelta con cuidado! (Arroz abajo, alga arriba).</div>
+        <div class="step"><strong>3. Relleno generoso:</strong> Pon el relleno sobre el alga (palta, queso crema, kanikama). Enrolla usando la esterilla plastificada.</div>
+        <div class="step"><strong>4. El Corte Perfecto:</strong> Usa un cuchillo muy afilado. Moja la hoja del cuchillo con un paño húmedo antes de CADA corte.</div>
     </div>
 </div>
 
-<div class="card" onclick="toggleCard('c3')">
+<div class="card" onclick="toggleCard(this, 'c3')">
     <div class="card-header">
         <span>🍤 Nivel 3: Nigiri & Presentación</span>
-        <span>▼</span>
+        <span class="toggle-icon">▼</span>
     </div>
     <div class="content" id="c3">
-        <p>El arte de la simplicidad. Pescado sobre arroz.</p>
-        <div class="step"><strong>1. La nube:</strong> Toma una bolita de arroz pequeña (20g) y dale forma ovalada en tu mano sin apretar mucho. Debe tener aire dentro.</div>
-        <div class="step"><strong>2. El corte:</strong> Corta el pescado en láminas rectangulares contra la fibra.</div>
-        <div class="step"><strong>3. Wasabi:</strong> Un puntito minúsculo de wasabi entre el arroz y el pescado (opcional).</div>
-        <div class="step"><strong>Tip Pro:</strong> Sirve siempre en números impares y acompaña con jengibre.</div>
+         <img src="https://images.unsplash.com/photo-1583623025817-d180a47da435?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nigiri de salmón" class="level-image">
+
+        <p style="text-align: center; font-style: italic;">El arte de la simplicidad. Pescado sobre una nube de arroz.</p>
+        <div class="step"><strong>1. La "Nube" de arroz:</strong> Toma una bolita pequeña (unos 20g) y dale forma ovalada en tu mano. No la aprietes mucho, debe tener aire dentro para que se deshaga en la boca.</div>
+        <div class="step"><strong>2. El corte del pescado:</strong> Corta el pescado en láminas rectangulares. El corte debe ser en contra de las vetas (fibras) del pescado.</div>
+        <div class="step"><strong>3. Ensamblaje:</strong> Un puntito de wasabi en el pescado (opcional), pon el arroz encima, y presiona suavemente con dos dedos para unirlos.</div>
+        <div class="step"><strong>Tip Pro:</strong> Sirve siempre en números impares en el plato y acompaña con jengibre encurtido.</div>
     </div>
 </div>
 
 <div class="footer-note">
-    Hecho con ❤️ para la futura Sushi Chef
+    Hecho con mucho ❤️ para la futura Sushi Chef
+    <br>¡A practicar!
 </div>
 
 <script>
-    function toggleCard(id) {
+    function toggleCard(element, id) {
         var content = document.getElementById(id);
+        var icon = element.querySelector('.toggle-icon');
+        
         if (content.style.display === "block") {
             content.style.display = "none";
+            icon.innerHTML = "▼";
+            element.style.borderLeftColor = "var(--primary)";
         } else {
             content.style.display = "block";
+            icon.innerHTML = "▲";
+            element.style.borderLeftColor = "#55efc4"; // Cambia a verde al abrir
         }
     }
 </script>
