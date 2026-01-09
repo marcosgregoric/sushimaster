@@ -81,7 +81,7 @@
         }
 
         #sushi-roller {
-            width: 300px; /* Tamaño grande */
+            width: 300px; 
             position: absolute;
             left: -350px;
         }
@@ -108,7 +108,7 @@
         h1 { color: var(--primary); margin-bottom: 5px; font-size: 2.5em; }
         .subtitle { font-size: 1.1em; color: #636e72; }
 
-        /* --- TARJETAS DE NIVELES --- */
+        /* --- TARJETAS --- */
         .card {
             background: var(--card);
             border-radius: 15px;
@@ -132,6 +132,40 @@
 
         .card-header:hover { background-color: #fff0f0; }
 
+        /* Estilo del Botón de Audio */
+        .audio-btn {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .audio-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .audio-btn.speaking {
+            background: var(--primary);
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Contenido Oculto */
         .content {
             max-height: 0;
             overflow: hidden;
@@ -163,7 +197,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* --- CONTENEDORES EXTERNOS (Video y Padlet) --- */
+        /* --- EXTERNOS --- */
         .external-wrapper {
             margin-top: 40px;
             background: var(--card);
@@ -213,7 +247,10 @@
 
         <div class="card">
             <div class="card-header" onclick="toggleCard('c0')">
-                <span>🍚 Nivel 0: El Secreto del Arroz</span>
+                <div style="display:flex; align-items:center;">
+                    <span>🍚 Nivel 0: El Secreto del Arroz</span>
+                    <button class="audio-btn" onclick="readLevel(event, 'c0', this)">🔊 Oír</button>
+                </div>
                 <span style="color:var(--primary)">▼</span>
             </div>
             <div class="content" id="c0">
@@ -230,7 +267,10 @@
 
         <div class="card">
             <div class="card-header" onclick="toggleCard('c1')">
-                <span>🥒 Nivel 1: Hosomaki (Rollos finos)</span>
+                <div style="display:flex; align-items:center;">
+                    <span>🥒 Nivel 1: Hosomaki</span>
+                    <button class="audio-btn" onclick="readLevel(event, 'c1', this)">🔊 Oír</button>
+                </div>
                 <span style="color:var(--primary)">▼</span>
             </div>
             <div class="content" id="c1">
@@ -247,7 +287,10 @@
 
         <div class="card">
             <div class="card-header" onclick="toggleCard('c2')">
-                <span>🥑 Nivel 2: Uramaki (Arroz por fuera)</span>
+                <div style="display:flex; align-items:center;">
+                    <span>🥑 Nivel 2: Uramaki</span>
+                    <button class="audio-btn" onclick="readLevel(event, 'c2', this)">🔊 Oír</button>
+                </div>
                 <span style="color:var(--primary)">▼</span>
             </div>
             <div class="content" id="c2">
@@ -264,7 +307,10 @@
 
         <div class="card">
             <div class="card-header" onclick="toggleCard('c3')">
-                <span>🍤 Nivel 3: Nigiri & Presentación</span>
+                <div style="display:flex; align-items:center;">
+                    <span>🍤 Nivel 3: Nigiri</span>
+                    <button class="audio-btn" onclick="readLevel(event, 'c3', this)">🔊 Oír</button>
+                </div>
                 <span style="color:var(--primary)">▼</span>
             </div>
             <div class="content" id="c3">
@@ -299,7 +345,7 @@
                     </a>
                 </div>
             </div>
-            </div>
+        </div>
 
         <div class="footer-note">
             Hecho con ❤️ para amantes del Sushi
@@ -308,16 +354,15 @@
     </div>
 
     <script>
-        // Configuración de Sonidos (Archivos: ninja.mp3, nivel.mp3)
+        // --- SONIDOS ---
         const introSound = new Audio('ninja.mp3');
         const clickSound = new Audio('nivel.mp3');
         introSound.volume = 0.5;
         clickSound.volume = 0.5;
 
-        // 1. INICIAR EXPERIENCIA (ANIMACIÓN 5 SEGUNDOS)
+        // --- INICIAR EXPERIENCIA ---
         document.getElementById('start-btn').addEventListener('click', () => {
             document.getElementById('start-screen').style.display = 'none';
-            
             const overlay = document.getElementById('intro-overlay');
             overlay.style.display = 'flex';
             
@@ -332,10 +377,10 @@
                 const content = document.getElementById('main-content');
                 content.style.opacity = '1';
                 setTimeout(() => { overlay.style.display = 'none'; }, 1000);
-            }, 5000); // 5000ms = 5 segundos
+            }, 5000); 
         });
 
-        // 2. ACORDEÓN
+        // --- ACORDEÓN ---
         function toggleCard(id) {
             const content = document.getElementById(id);
             const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
@@ -349,6 +394,56 @@
                 clickSound.play();
                 content.style.maxHeight = content.scrollHeight + "px";
             }
+        }
+
+        // --- LECTURA DE VOZ (TEXT TO SPEECH) ---
+        let currentUtterance = null; // Para controlar si ya está hablando
+
+        function readLevel(e, contentId, btn) {
+            // DETENER PROPAGACIÓN: Evita que el acordeón se abra/cierre al dar play
+            e.stopPropagation();
+
+            // 1. Si ya está hablando, detener todo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                
+                // Si el botón presionado es el mismo que estaba hablando, paramos aquí (es un Pause)
+                if (btn.classList.contains('speaking')) {
+                    resetButtons();
+                    return;
+                }
+            }
+
+            // 2. Preparar visuales (Resetear otros botones)
+            resetButtons();
+            btn.innerHTML = "⏸️ Parar";
+            btn.classList.add('speaking');
+
+            // 3. Obtener el texto del nivel
+            const contentDiv = document.getElementById(contentId);
+            // Extraemos solo el texto limpio de los párrafos y los pasos
+            const textToRead = contentDiv.innerText.replace(/\n/g, '. ');
+
+            // 4. Configurar la voz
+            const utterance = new SpeechSynthesisUtterance(textToRead);
+            utterance.lang = 'es-ES'; // Español
+            utterance.rate = 0.9; // Un poco más lento para que sea claro
+            
+            // Cuando termine de hablar, resetear botón
+            utterance.onend = function() {
+                resetButtons();
+            };
+
+            // 5. Hablar
+            speechSynthesis.speak(utterance);
+        }
+
+        function resetButtons() {
+            const btns = document.querySelectorAll('.audio-btn');
+            btns.forEach(b => {
+                b.innerHTML = "🔊 Oír";
+                b.classList.remove('speaking');
+            });
         }
     </script>
 
