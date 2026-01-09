@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sushi Master: Guía de Preparación</title>
     <style>
-        /* --- ESTÉTICA V1 (ORIGINAL) --- */
+        /* --- ESTÉTICA V1 (DISEÑO LIMPIO) --- */
         :root {
             --primary: #FF6B6B; /* Salmón original */
             --bg: #F7F9FC;      /* Fondo gris azulado suave */
@@ -14,16 +14,16 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente original limpia */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            overflow-x: hidden; /* Necesario para la animación */
+            overflow-x: hidden;
         }
 
-        /* --- PANTALLA DE INICIO (Adaptada al estilo V1) --- */
+        /* --- PANTALLA DE INICIO --- */
         #start-screen {
             position: fixed;
             top: 0;
@@ -66,14 +66,14 @@
             background-color: #ff5252;
         }
 
-        /* --- ANIMACIÓN SUSHI (Modificada: Lenta y Grande) --- */
+        /* --- ANIMACIÓN SUSHI (Grande y Lenta) --- */
         #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(45, 52, 54, 0.9); /* Un poco oscuro para que resalte el sushi */
+            background-color: rgba(45, 52, 54, 0.9);
             z-index: 9999; 
             display: none; 
             align-items: center;
@@ -81,7 +81,7 @@
         }
 
         #sushi-roller {
-            width: 300px; /* DOBLE TAMAÑO (antes 150px) */
+            width: 300px; /* Tamaño grande */
             position: absolute;
             left: -350px;
         }
@@ -108,11 +108,11 @@
         h1 { color: var(--primary); margin-bottom: 5px; font-size: 2.5em; }
         .subtitle { font-size: 1.1em; color: #636e72; }
 
-        /* --- TARJETAS / ACORDEÓN (Estilo V1) --- */
+        /* --- TARJETAS DE NIVELES --- */
         .card {
             background: var(--card);
             border-radius: 15px;
-            padding: 0; /* Padding controlado dentro */
+            padding: 0;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border-left: 6px solid var(--primary);
@@ -130,16 +130,13 @@
             transition: background 0.2s;
         }
 
-        .card-header:hover {
-            background-color: #fff0f0;
-        }
+        .card-header:hover { background-color: #fff0f0; }
 
-        /* Contenido Oculto */
         .content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-out;
-            padding: 0 20px; /* Padding lateral */
+            padding: 0 20px;
         }
 
         .content-inner {
@@ -148,9 +145,8 @@
             padding-top: 15px;
         }
 
-        /* Estilo de los Pasos */
         .step {
-            background: #fff0f0; /* Rosado muy suave */
+            background: #fff0f0;
             padding: 12px;
             border-radius: 10px;
             margin-bottom: 12px;
@@ -159,7 +155,6 @@
 
         strong { color: var(--primary); }
 
-        /* Imágenes */
         .level-img {
             width: 100%;
             height: auto;
@@ -168,9 +163,9 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* Video */
-        .video-wrapper {
-            margin-top: 50px;
+        /* --- CONTENEDORES EXTERNOS (Video y Padlet) --- */
+        .external-wrapper {
+            margin-top: 40px;
             background: var(--card);
             padding: 20px;
             border-radius: 15px;
@@ -178,7 +173,7 @@
             text-align: center;
         }
         
-        iframe {
+        iframe.youtube-video {
             border-radius: 10px;
             width: 100%;
             max-width: 100%;
@@ -228,7 +223,6 @@
                     <div class="step"><strong>2. Cocinar:</strong> Misma cantidad de agua que de arroz. Fuego fuerte hasta hervir, luego mínimo y tapado por 15 min.</div>
                     <div class="step"><strong>3. El Aderezo (Su):</strong> Mezcla vinagre de arroz, azúcar y sal. Caliéntalo sin hervir.</div>
                     <div class="step"><strong>4. Enfriar:</strong> Pasa el arroz a una fuente amplia, echa el líquido y abanica mientras mezclas cortando.</div>
-                    
                     <img src="nivel0.jpg" alt="Preparación de Arroz" class="level-img" onerror="this.style.display='none'">
                 </div>
             </div>
@@ -246,7 +240,6 @@
                     <div class="step"><strong>2. Manos:</strong> Mójate las manos para que el arroz no se pegue.</div>
                     <div class="step"><strong>3. Relleno:</strong> Pon poco arroz (deja un borde libre arriba) y una tira de pepino o salmón en el centro.</div>
                     <div class="step"><strong>4. Enrollar:</strong> Usa la esterilla. Cierra cuadrado, no redondo. ¡Presiona firme pero suave!</div>
-                    
                     <img src="nivel1.jpg" alt="Hosomaki" class="level-img" onerror="this.style.display='none'">
                 </div>
             </div>
@@ -264,7 +257,6 @@
                     <div class="step"><strong>2. Relleno:</strong> Pon el relleno sobre el alga (palta, queso crema, salmón).</div>
                     <div class="step"><strong>3. Plastificar:</strong> Envuelve tu esterilla en film plástico para que no se pegue el arroz.</div>
                     <div class="step"><strong>4. Corte:</strong> Moja el cuchillo antes de CADA corte para que salga perfecto.</div>
-                    
                     <img src="nivel2.jpg" alt="Uramaki" class="level-img" onerror="this.style.display='none'">
                 </div>
             </div>
@@ -282,16 +274,32 @@
                     <div class="step"><strong>2. El corte:</strong> Corta el pescado en láminas rectangulares contra la fibra.</div>
                     <div class="step"><strong>3. Wasabi:</strong> Un puntito minúsculo de wasabi entre el arroz y el pescado (opcional).</div>
                     <div class="step"><strong>Tip Pro:</strong> Sirve siempre en números impares y acompaña con jengibre.</div>
-                    
                     <img src="nivel3.jpg" alt="Nigiri" class="level-img" onerror="this.style.display='none'">
                 </div>
             </div>
         </div>
 
-        <div class="video-wrapper">
+        <div class="external-wrapper">
             <h3 style="color:var(--primary)">Clase Maestra: Los Básicos</h3>
-            <iframe src="https://www.youtube.com/embed/3wxEn90-YsY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="youtube-video" src="https://www.youtube.com/embed/3wxEn90-YsY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+
+        <div class="external-wrapper">
+            <h3 style="color:var(--primary); margin-bottom: 10px;">📸 Diario de Sushi (Sube tus fotos)</h3>
+            <p style="font-size: 0.9em; color:#636e72; margin-bottom: 20px;">Haz clic en el (+) del tablero para guardar tu progreso.</p>
+            
+            <div class="padlet-embed" style="border:1px solid rgba(0,0,0,0.1);border-radius:2px;box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4">
+                <p style="padding:0;margin:0">
+                    <iframe src="https://padlet.com/embed/jwk9pheb4gbvt3yv" frameborder="0" allow="camera;microphone;geolocation;display-capture;clipboard-write" style="width:100%;height:608px;display:block;padding:0;margin:0"></iframe>
+                </p>
+                <div style="display:flex;align-items:center;justify-content:end;margin:0;padding:8px 8px 8px 0">
+                    <a href="https://padlet.com?ref=embed" style="display:flex;align-items:center;gap:5px;flex-grow:0;margin:0;border:none;padding:0;text-decoration:none" target="_blank">
+                        <span aria-hidden style="color:#9E9E9E;font-size:10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;line-height:1">Made with</span>
+                        <img src="https://padlet.net/emails/padlet_email_logo_2026_text-dark-200.png" height="12" style="padding:0;margin:0;background:0 0;border:none;box-shadow:none;display:block" alt="Hecho con Padlet">
+                    </a>
+                </div>
+            </div>
+            </div>
 
         <div class="footer-note">
             Hecho con ❤️ para amantes del Sushi
@@ -306,50 +314,39 @@
         introSound.volume = 0.5;
         clickSound.volume = 0.5;
 
-        // 1. INICIAR EXPERIENCIA
+        // 1. INICIAR EXPERIENCIA (ANIMACIÓN 5 SEGUNDOS)
         document.getElementById('start-btn').addEventListener('click', () => {
-            // Ocultar pantalla inicio
             document.getElementById('start-screen').style.display = 'none';
             
-            // Mostrar Overlay Animación
             const overlay = document.getElementById('intro-overlay');
             overlay.style.display = 'flex';
             
-            // Activar Animación (5 SEGUNDOS = LENTA)
             const sushi = document.getElementById('sushi-roller');
             sushi.style.animation = "sushiRoll 5s cubic-bezier(0.25, 1, 0.5, 1) forwards";
             
-            // Play Audio
             introSound.play().catch(e => console.log(e));
 
-            // Esperar 5 segundos y mostrar contenido
             setTimeout(() => {
                 overlay.style.opacity = '0'; 
                 overlay.style.transition = "opacity 1s";
-                
                 const content = document.getElementById('main-content');
                 content.style.opacity = '1';
-
                 setTimeout(() => { overlay.style.display = 'none'; }, 1000);
             }, 5000); // 5000ms = 5 segundos
         });
 
-        // 2. ACORDEÓN (ABRIR/CERRAR NIVELES)
+        // 2. ACORDEÓN
         function toggleCard(id) {
             const content = document.getElementById(id);
             const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
 
-            // Cerrar todos los demás
             document.querySelectorAll('.content').forEach(el => {
                 el.style.maxHeight = "0px";
             });
 
             if (!isOpen) {
-                // Sonido
                 clickSound.currentTime = 0;
                 clickSound.play();
-                
-                // Abrir
                 content.style.maxHeight = content.scrollHeight + "px";
             }
         }
