@@ -3,114 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Ninja 4 Niveles</title>
+    <title>Sushi Master: Guía Ninja</title>
     <style>
-        /* --- 1. ESTILOS GENERALES Y FONDO --- */
+        /* --- ESTÉTICA GENERAL --- */
+        :root {
+            --bg-color: #f4f1ea;       /* Color papel arroz */
+            --red-accent: #d62828;     /* Rojo japonés intenso */
+            --dark-accent: #2c2c2c;    /* Gris tinta oscuro */
+            --step-bg: #fff;           /* Fondo de los pasos */
+            --shadow-style: 4px 4px 0px var(--red-accent);
+        }
+
         body {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', Courier, monospace; /* Fuente estilo técnico/retro */
+            background-color: var(--bg-color);
+            background-image: url('fondo.jpg'); /* Intenta cargar tu fondo */
+            background-size: cover;
+            background-attachment: fixed;
             margin: 0;
             padding: 0;
+            color: var(--dark-accent);
             overflow-x: hidden;
-            /* Aquí intenta cargar tu fondo. Si falla, usa el color crema */
-            background: url('fondo.jpg') no-repeat center center fixed; 
-            background-size: cover;
-            background-color: #f4f1ea; 
         }
 
-        h1 {
-            text-align: center;
-            color: #d62828; 
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            margin-top: 20px;
-            border-bottom: 2px solid #d62828;
-        }
-
-        /* --- 2. PANTALLA DE "ENTRAR" (Soluciona el problema del sonido) --- */
+        /* --- 1. PANTALLA DE ENTRADA (Start Screen) --- */
         #start-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
-            color: white;
+            background-color: var(--bg-color);
+            background-image: url('fondo.jpg');
+            background-size: cover;
             z-index: 10000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+        }
+
+        .start-card {
+            background: white;
+            padding: 40px;
+            border: 3px solid var(--dark-accent);
+            box-shadow: var(--shadow-style);
+            text-align: center;
+            max-width: 400px;
         }
 
         #start-btn {
-            padding: 20px 40px;
-            font-size: 24px;
-            background: #d62828;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            background: var(--dark-accent);
             color: white;
-            border: 2px solid white;
+            border: none;
             cursor: pointer;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: inherit;
             font-weight: bold;
-        }
-        
-        #start-btn:hover {
-            background: #ff4d4d;
+            transition: transform 0.1s;
         }
 
-        /* --- 3. ANIMACIÓN SUSHI (Intro) --- */
+        #start-btn:hover {
+            background: var(--red-accent);
+            transform: scale(1.05);
+        }
+
+        /* --- 2. ANIMACIÓN SUSHI (Overlay) --- */
         #intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9); 
+            background-color: rgba(0,0,0,0.8); 
             z-index: 9999; 
-            display: none; /* Se activa con JS */
+            display: none; 
             align-items: center;
             justify-content: center;
         }
 
         #sushi-roller {
-            width: 150px;
+            width: 180px;
             position: absolute;
-            left: -200px;
-            /* La animación se inyecta con JS para sincronizar */
+            left: -250px;
         }
 
         @keyframes ninjaRoll {
             0% { left: 110%; transform: rotate(0deg); }
-            100% { left: -20%; transform: rotate(-1440deg); }
+            100% { left: -30%; transform: rotate(-1080deg); }
         }
 
-        /* --- 4. LOS 4 NIVELES (Acordeón) --- */
+        /* --- 3. CONTENIDO PRINCIPAL --- */
         .container {
-            max-width: 600px;
-            margin: 100px auto 50px auto; /* Margen superior para bajarlo */
+            max-width: 700px;
+            margin: 40px auto;
             padding: 20px;
             opacity: 0; 
             transition: opacity 1s;
         }
 
+        header {
+            text-align: center;
+            background: white;
+            border: 2px solid var(--dark-accent);
+            padding: 20px;
+            box-shadow: var(--shadow-style);
+            margin-bottom: 40px;
+        }
+
+        h1 { margin: 0; color: var(--red-accent); text-transform: uppercase; }
+        .subtitle { margin-top: 5px; font-weight: bold; }
+
+        /* --- ACORDEÓN (NIVELES) --- */
         .accordion-item {
-            background-color: rgba(255, 255, 255, 0.95);
-            border: 2px solid #333;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            box-shadow: 4px 4px 0px #d62828;
+            background-color: white;
+            border: 2px solid var(--dark-accent);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-style);
         }
 
         .accordion-header {
-            background-color: #222;
-            color: #fff;
-            padding: 15px;
+            background-color: var(--dark-accent);
+            color: white;
+            padding: 20px;
             cursor: pointer;
             font-weight: bold;
             font-size: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background 0.3s;
         }
 
         .accordion-header:hover {
@@ -120,166 +144,225 @@
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background-color: #fff;
-            color: #333;
+            transition: max-height 0.5s ease-out; /* Un poco más lento para ver contenido */
+            padding: 0 20px;
         }
 
-        .menu-list {
-            list-style-type: none;
-            padding: 20px;
-            margin: 0;
+        /* Estilos de los Pasos (Adaptados de tu código original) */
+        .level-details {
+            padding: 20px 0;
         }
-        
-        .menu-list li {
-            padding: 8px 0;
-            border-bottom: 1px dashed #ccc;
+
+        .intro-text {
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .step {
+            background: #fff0f0; /* Color rosado suave original */
+            padding: 15px;
+            border-left: 4px solid var(--red-accent);
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        strong { color: var(--red-accent); }
+
+        /* Imágenes de los niveles */
+        .level-img {
+            width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border: 2px solid var(--dark-accent);
+            border-radius: 4px;
+            display: block;
         }
 
         /* --- VIDEO --- */
         .video-wrapper {
-            margin-top: 50px;
+            margin-top: 60px;
+            background: white;
+            border: 2px solid var(--dark-accent);
+            padding: 20px;
+            box-shadow: var(--shadow-style);
             text-align: center;
-            padding-bottom: 50px;
         }
+
         iframe {
-            border: 4px solid #333;
-            box-shadow: 5px 5px 0px #d62828;
-            max-width: 100%;
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: none;
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8em;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <div id="start-screen">
-        <h1>🏯 BIENVENIDO AL DOJO 🏯</h1>
-        <p>(Haz clic para iniciar la experiencia)</p>
-        <button id="start-btn">ENTRAR</button>
+        <div class="start-card">
+            <h2 style="margin-top:0; color: #d62828;">🍣 SUSHI MASTER 🍣</h2>
+            <p>Guía Ninja de Principiante a Experta</p>
+            <button id="start-btn">ENTRAR A LA COCINA</button>
+        </div>
     </div>
 
     <div id="intro-overlay">
-        <img src="sushi.png" alt="Sushi Rodando" id="sushi-roller">
+        <img src="sushi.png" alt="Ninja Sushi" id="sushi-roller">
     </div>
 
     <div class="container" id="main-content">
-        <h1>Menú de Aprendizaje</h1>
+        <header>
+            <h1>🍣 Sushi Master</h1>
+            <div class="subtitle">Guía Secreta para mi Sobrina</div>
+        </header>
 
         <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleLevel('nivel0')">
-                Nivel 0: Cinturón Blanco
+            <div class="accordion-header" onclick="toggleLevel('c0')">
+                🍚 Nivel 0: El Secreto del Arroz
                 <span>▼</span>
             </div>
-            <div class="accordion-content" id="nivel0">
-                <ul class="menu-list">
-                    <li>• Introducción a la lógica</li>
-                    <li>• Variables y Tipos de Datos</li>
-                    <li>• Tu primer "Hola Mundo"</li>
-                </ul>
+            <div class="accordion-content" id="c0">
+                <div class="level-details">
+                    <p class="intro-text">Sin buen arroz, no hay sushi. Este es el paso más importante.</p>
+                    
+                    <div class="step"><strong>1. Lavar:</strong> Lava el arroz 5 o 6 veces hasta que el agua salga transparente. ¡Quítale el almidón!</div>
+                    <div class="step"><strong>2. Cocinar:</strong> Misma cantidad de agua que de arroz. Fuego fuerte hasta hervir, luego mínimo y tapado por 15 min.</div>
+                    <div class="step"><strong>3. El Aderezo (Su):</strong> Mezcla vinagre de arroz, azúcar y sal. Caliéntalo sin hervir.</div>
+                    <div class="step"><strong>4. Enfriar:</strong> Pasa el arroz a una fuente amplia, echa el líquido y abanica mientras mezclas cortando (no aplastes).</div>
+
+                    <img src="nivel0.jpg" alt="Preparación Arroz" class="level-img" onerror="this.style.display='none'">
+                </div>
             </div>
         </div>
 
         <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleLevel('nivel1')">
-                Nivel 1: Cinturón Amarillo
+            <div class="accordion-header" onclick="toggleLevel('c1')">
+                🥒 Nivel 1: Hosomaki (Rollos finos)
                 <span>▼</span>
             </div>
-            <div class="accordion-content" id="nivel1">
-                <ul class="menu-list">
-                    <li>• Estructuras de Control (If/Else)</li>
-                    <li>• Bucles (For/While)</li>
-                    <li>• Funciones Básicas</li>
-                </ul>
+            <div class="accordion-content" id="c1">
+                <div class="level-details">
+                    <p class="intro-text">El clásico rollo pequeño con un solo ingrediente.</p>
+
+                    <div class="step"><strong>1. Nori:</strong> Corta la hoja de alga Nori por la mitad. Usa el lado rugoso hacia arriba.</div>
+                    <div class="step"><strong>2. Manos:</strong> Mójate las manos para que el arroz no se pegue.</div>
+                    <div class="step"><strong>3. Relleno:</strong> Pon poco arroz (deja un borde libre arriba) y una tira de pepino o salmón en el centro.</div>
+                    <div class="step"><strong>4. Enrollar:</strong> Usa la esterilla. Cierra cuadrado, no redondo. ¡Presiona firme pero suave!</div>
+
+                    <img src="nivel1.jpg" alt="Hosomaki" class="level-img" onerror="this.style.display='none'">
+                </div>
             </div>
         </div>
 
         <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleLevel('nivel2')">
-                Nivel 2: Cinturón Azul
+            <div class="accordion-header" onclick="toggleLevel('c2')">
+                🥑 Nivel 2: Uramaki (Arroz por fuera)
                 <span>▼</span>
             </div>
-            <div class="accordion-content" id="nivel2">
-                <ul class="menu-list">
-                    <li>• Arrays y Objetos</li>
-                    <li>• Manipulación del DOM</li>
-                    <li>• Eventos de Usuario</li>
-                </ul>
+            <div class="accordion-content" id="c2">
+                <div class="level-details">
+                    <p class="intro-text">Sube la dificultad. El famoso California Roll.</p>
+
+                    <div class="step"><strong>1. Invertir:</strong> Cubre toda el alga con arroz. Esparce sésamo. ¡Dale la vuelta! (Alga arriba, arroz abajo).</div>
+                    <div class="step"><strong>2. Relleno:</strong> Pon el relleno sobre el alga (palta, queso crema, salmón).</div>
+                    <div class="step"><strong>3. Plastificar:</strong> Envuelve tu esterilla en film plástico para que no se pegue el arroz.</div>
+                    <div class="step"><strong>4. Corte:</strong> Moja el cuchillo antes de CADA corte para que salga perfecto.</div>
+
+                    <img src="nivel2.jpg" alt="Uramaki" class="level-img" onerror="this.style.display='none'">
+                </div>
             </div>
         </div>
 
         <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleLevel('nivel3')">
-                Nivel 3: Cinturón Negro
+            <div class="accordion-header" onclick="toggleLevel('c3')">
+                🍤 Nivel 3: Nigiri & Presentación
                 <span>▼</span>
             </div>
-            <div class="accordion-content" id="nivel3">
-                <ul class="menu-list">
-                    <li>• APIs y Fetch</li>
-                    <li>• Programación Asíncrona</li>
-                    <li>• Despliegue de Proyectos</li>
-                </ul>
+            <div class="accordion-content" id="c3">
+                <div class="level-details">
+                    <p class="intro-text">El arte de la simplicidad. Pescado sobre arroz.</p>
+
+                    <div class="step"><strong>1. La nube:</strong> Toma una bolita de arroz pequeña (20g) y dale forma ovalada en tu mano sin apretar mucho. Debe tener aire dentro.</div>
+                    <div class="step"><strong>2. El corte:</strong> Corta el pescado en láminas rectangulares contra la fibra.</div>
+                    <div class="step"><strong>3. Wasabi:</strong> Un puntito minúsculo de wasabi entre el arroz y el pescado (opcional).</div>
+                    <div class="step"><strong>Tip Pro:</strong> Sirve siempre en números impares y acompaña con jengibre.</div>
+
+                    <img src="nivel3.jpg" alt="Nigiri" class="level-img" onerror="this.style.display='none'">
+                </div>
             </div>
         </div>
 
         <div class="video-wrapper">
-            <h3>🍣 Maestro Iwao: Los Básicos</h3>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/3wxEn90-YsY" frameborder="0" allowfullscreen></iframe>
+            <h3 style="color:#d62828">🎥 Maestro Iwao: Los Básicos</h3>
+            <iframe src="https://www.youtube.com/embed/3wxEn90-YsY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="footer-note">
+            Hecho con ❤️ para la futura Sushi Chef
         </div>
     </div>
 
     <script>
-        // CARGA DE SONIDOS (Verifica nombres exactos)
-        const soundIntro = new Audio('ninja.mp3'); 
-        const soundLevel = new Audio('nivel.mp3'); 
+        // --- CONFIGURACIÓN DE SONIDOS ---
+        const introSound = new Audio('ninja.mp3');
+        const clickSound = new Audio('nivel.mp3');
+        introSound.volume = 0.5;
+        clickSound.volume = 0.5;
 
-        // 1. INICIAR TODO AL HACER CLIC EN "ENTRAR"
-        document.getElementById('start-btn').addEventListener('click', function() {
-            // Ocultar pantalla de inicio
+        // --- LÓGICA DE INICIO ---
+        document.getElementById('start-btn').addEventListener('click', () => {
+            // 1. Ocultar pantalla de inicio
             document.getElementById('start-screen').style.display = 'none';
             
-            // Mostrar overlay de animación
+            // 2. Mostrar capa de animación
             const overlay = document.getElementById('intro-overlay');
             overlay.style.display = 'flex';
             
-            // Lanzar animación CSS manualmente
+            // 3. Lanzar animación Sushi
             const sushi = document.getElementById('sushi-roller');
             sushi.style.animation = "ninjaRoll 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards";
+            
+            // 4. Reproducir sonido Intro
+            introSound.play().catch(e => console.log("Audio error:", e));
 
-            // REPRODUCIR SONIDO INTRO
-            soundIntro.volume = 0.6;
-            soundIntro.play().catch(e => alert("Error audio intro: " + e));
-
-            // Esperar a que termine la animación (2.5s)
+            // 5. Transición al contenido tras 2.5 segundos
             setTimeout(() => {
-                // Desvanecer overlay
+                overlay.style.opacity = '0'; // Fade out
                 overlay.style.transition = "opacity 1s";
-                overlay.style.opacity = '0';
+                
+                const content = document.getElementById('main-content');
+                content.style.opacity = '1'; // Mostrar contenido
 
-                // Mostrar contenido
-                document.getElementById('main-content').style.opacity = '1';
-
-                // Quitar overlay del DOM
                 setTimeout(() => { overlay.style.display = 'none'; }, 1000);
             }, 2500);
         });
 
-        // 2. FUNCIÓN DE NIVELES (ACORDEÓN)
+        // --- LÓGICA DE NIVELES (ACORDEÓN) ---
         function toggleLevel(id) {
             const content = document.getElementById(id);
-            
-            // Si está cerrado (maxHeight es null o 0), lo abrimos
-            if (!content.style.maxHeight || content.style.maxHeight === "0px") {
-                // Cerrar los otros primero (Opcional, si quieres que solo uno esté abierto)
-                document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = "0px");
+            // Comprobamos si ya tiene altura asignada para saber si está abierto
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
 
-                // SONIDO PIN PIRIRI
-                soundLevel.currentTime = 0;
-                soundLevel.play().catch(e => console.log("Error audio nivel"));
+            // Cerrar todos primero
+            document.querySelectorAll('.accordion-content').forEach(el => {
+                el.style.maxHeight = "0px";
+            });
 
-                // Abrir
+            if (!isOpen) {
+                // Reproducir sonido
+                clickSound.currentTime = 0;
+                clickSound.play();
+
+                // Abrir el seleccionado
                 content.style.maxHeight = content.scrollHeight + "px";
-            } else {
-                // Cerrar
-                content.style.maxHeight = "0px";
             }
         }
     </script>
