@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Master: Guía para mi Sobrina</title>
+    <style>
+        :root {
+            --primary: #FF6B6B; /* Salmón */
+            --bg: #F7F9FC;
+            --card: #FFFFFF;
+            --text: #2D3436;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 { color: var(--primary); margin-bottom: 5px; }
+        .subtitle { font-size: 0.9em; color: #636e72; }
+        
+        .card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            cursor: pointer;
+            border-left: 5px solid var(--primary);
+        }
+        .card:hover { transform: translateY(-3px); }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .emoji { font-size: 1.5em; margin-right: 10px; }
+        .content {
+            display: none;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .step {
+            background: #fff0f0;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        strong { color: var(--primary); }
+        
+        /* Botón final */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #b2bec3;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🍣 Sushi Master</h1>
+    <div class="subtitle">De principiante a experta</div>
+</header>
+
+<div class="card" onclick="toggleCard('c0')">
+    <div class="card-header">
+        <span>🍚 Nivel 0: El Secreto del Arroz</span>
+        <span>▼</span>
+    </div>
+    <div class="content" id="c0">
+        <p>Sin buen arroz, no hay sushi. Este es el paso más importante.</p>
+        <div class="step"><strong>1. Lavar:</strong> Lava el arroz 5 o 6 veces hasta que el agua salga transparente. ¡Quítale el almidón!</div>
+        <div class="step"><strong>2. Cocinar:</strong> Misma cantidad de agua que de arroz. Fuego fuerte hasta hervir, luego mínimo y tapado por 15 min.</div>
+        <div class="step"><strong>3. El Aderezo (Su):</strong> Mezcla vinagre de arroz, azúcar y sal. Caliéntalo sin hervir.</div>
+        <div class="step"><strong>4. Enfriar:</strong> Pasa el arroz a una fuente amplia, echa el líquido y abanica mientras mezclas cortando (no aplastes).</div>
+    </div>
+</div>
+
+<div class="card" onclick="toggleCard('c1')">
+    <div class="card-header">
+        <span>🥒 Nivel 1: Hosomaki (Rollos finos)</span>
+        <span>▼</span>
+    </div>
+    <div class="content" id="c1">
+        <p>El clásico rollo pequeño con un solo ingrediente.</p>
+        <div class="step"><strong>1. Nori:</strong> Corta la hoja de alga Nori por la mitad. Usa el lado rugoso hacia arriba.</div>
+        <div class="step"><strong>2. Manos:</strong> Mójate las manos para que el arroz no se pegue.</div>
+        <div class="step"><strong>3. Relleno:</strong> Pon poco arroz (deja un borde libre arriba) y una tira de pepino o salmón en el centro.</div>
+        <div class="step"><strong>4. Enrollar:</strong> Usa la esterilla. Cierra cuadrado, no redondo. ¡Presiona firme pero suave!</div>
+    </div>
+</div>
+
+<div class="card" onclick="toggleCard('c2')">
+    <div class="card-header">
+        <span>🥑 Nivel 2: Uramaki (Arroz por fuera)</span>
+        <span>▼</span>
+    </div>
+    <div class="content" id="c2">
+        <p>Sube la dificultad. El famoso California Roll.</p>
+        <div class="step"><strong>1. Invertir:</strong> Cubre toda el alga con arroz. Esparce sésamo. ¡Dale la vuelta! (Alga arriba, arroz abajo).</div>
+        <div class="step"><strong>2. Relleno:</strong> Pon el relleno sobre el alga (palta, queso crema, salmón).</div>
+        <div class="step"><strong>3. Plastificar:</strong> Envuelve tu esterilla en film plástico para que no se pegue el arroz.</div>
+        <div class="step"><strong>4. Corte:</strong> Moja el cuchillo antes de CADA corte para que salga perfecto.</div>
+    </div>
+</div>
+
+<div class="card" onclick="toggleCard('c3')">
+    <div class="card-header">
+        <span>🍤 Nivel 3: Nigiri & Presentación</span>
+        <span>▼</span>
+    </div>
+    <div class="content" id="c3">
+        <p>El arte de la simplicidad. Pescado sobre arroz.</p>
+        <div class="step"><strong>1. La nube:</strong> Toma una bolita de arroz pequeña (20g) y dale forma ovalada en tu mano sin apretar mucho. Debe tener aire dentro.</div>
+        <div class="step"><strong>2. El corte:</strong> Corta el pescado en láminas rectangulares contra la fibra.</div>
+        <div class="step"><strong>3. Wasabi:</strong> Un puntito minúsculo de wasabi entre el arroz y el pescado (opcional).</div>
+        <div class="step"><strong>Tip Pro:</strong> Sirve siempre en números impares y acompaña con jengibre.</div>
+    </div>
+</div>
+
+<div class="footer-note">
+    Hecho con ❤️ para la futura Sushi Chef
+</div>
+
+<script>
+    function toggleCard(id) {
+        var content = document.getElementById(id);
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
